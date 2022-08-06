@@ -16,10 +16,10 @@ class DeriveWalletKeysTestsCommon {
         val account = DeterministicWallet.derivePrivateKey(master, KeyPath("m/44'/1'/0'"))
         // some wallets will use tpub instead of upub
         val xpub = DeterministicWallet.encode(DeterministicWallet.publicKey(account), DeterministicWallet.tpub)
-        assertEquals(xpub, "tpubDDamug2qVwe94yFJ38MM3ek2LiWiyjMmkQPhYMnHNZz5XHj7bj8xc7pFmyiYnCfqrSy62e1196qcpmKYhcUMcBTGMW4mEWf1v9H8wNtLZku")
+        assertEquals(xpub, "tpubDDamug2qVwe94yFJ38MM3ek2LiWiyjMmkQPhYMnHNZz5XHj7bj8xc7pFmyiYnCfqrSy62e1196qcpmKYhcUMcBTGMW4mEWf1v9H8wNY7A1v")
         assertEquals(
             deriveAddresses(xpub, DerivationScheme.BIP44),
-            listOf("mmpDgTP9FQbJCcdkkuXLbjbvqg3j33Zw3H", "mtXgQHM7Eawr6rjDWh7CrFtBQnbibviekL", "mw39H2JNixLuXLfTXqZr53M1n18ekPNi9U", "mnK3W3DMnkKMPT3Kbx6gvrmWxch6BhNHoo", "mpotVZLVr3fgbuBD2jzmwxVg7iATpq7YME")
+            listOf("mmpDgTP9FQbJCcdkkuXLbjbvqg3j6xczBb", "mtXgQHM7Eawr6rjDWh7CrFtBQnbiZQEeZ2", "mw39H2JNixLuXLfTXqZr53M1n18en3ceoC", "mnK3W3DMnkKMPT3Kbx6gvrmWxch67gLB4x", "mpotVZLVr3fgbuBD2jzmwxVg7iAToPctnP")
         )
     }
 
@@ -28,15 +28,15 @@ class DeriveWalletKeysTestsCommon {
         val account = DeterministicWallet.derivePrivateKey(master, KeyPath("m/49'/1'/0'"))
         // some wallets will use tpub instead of upub
         val xpub = DeterministicWallet.encode(DeterministicWallet.publicKey(account), DeterministicWallet.upub)
-        assertEquals(xpub, "upub5DKk7kdrLoL3HqrfVdf3mLZJ59g6Bix8UtB6YJQNSKfE3E6YU2Vq7dH7E8ce87jUAac4nRag6Zd7c2cXs45Q4nJcLdrJyNWPxS5D9LFSpGL")
+        assertEquals(xpub, "upub5DKk7kdrLoL3HqrfVdf3mLZJ59g6Bix8UtB6YJQNSKfE3E6YU2Vq7dH7E8ce87jUAac4nRag6Zd7c2cXs45Q4nJcLdrJyNWPxS5D9J2L4L3")
         assertEquals(
             deriveAddresses(xpub, DerivationScheme.BIP49),
             listOf(
-                "2NAV38YdZBS6s6b89QdmyPnjBxn6Jn3BkhQ",
-                "2Mzxym6Rey5Mwnnxh6L134MaHFwTPQB4fdx",
-                "2N8tTGMc57REfePZzPkWqEGaYKHsrVsW3LJ",
-                "2Mxfuivcx4TdGroh6Q2GmCR5rQB46fjJUtn",
-                "2N7uWEqMPCjzHynqSDaAnydZD6WfEpH9ekz"
+                "2NAV38YdZBS6s6b89QdmyPnjBxn6JiJDVSL",
+                "2Mzxym6Rey5Mwnnxh6L134MaHFwTPNCcu1Z",
+                "2N8tTGMc57REfePZzPkWqEGaYKHsraR5sEn",
+                "2Mxfuivcx4TdGroh6Q2GmCR5rQB46id5bTF",
+                "2N7uWEqMPCjzHynqSDaAnydZD6WfEtwDumP"
             )
         )
     }
@@ -46,15 +46,15 @@ class DeriveWalletKeysTestsCommon {
         val account = DeterministicWallet.derivePrivateKey(master, KeyPath("m/84'/1'/0'"))
         // some wallets will use tpub instead of upub
         val xpub = DeterministicWallet.encode(DeterministicWallet.publicKey(account), DeterministicWallet.vpub)
-        assertEquals(xpub, "vpub5YmxxDXhaEfLoqxn8xJExGMSQepxRbJDFqyc9FpDKyW8z966eDsgqbTHnJCvc698MhN3FDRt49DuPBgdRufopecaeyffJCUKXRKHoNn7BhX")
+        assertEquals(xpub, "vpub5YmxxDXhaEfLoqxn8xJExGMSQepxRbJDFqyc9FpDKyW8z966eDsgqbTHnJCvc698MhN3FDRt49DuPBgdRufopecaeyffJCUKXRKHoKfcKeH")
         assertEquals(
             deriveAddresses(xpub, DerivationScheme.BIP84),
             listOf(
-                "tb1ql63el50rtln6n4kxa76jrhuts3kxmk9wtz6hp0",
-                "tb1qa2hyhca4y07xqcl9r9m63rtv4hgdh063hldn6r",
-                "tb1q0lywyl3cdkuw29yuh6w0frqh4hnxdj0m4e78eq",
-                "tb1q4dg72vn06mrjh3yyzpkws3w2z0whrys8g2a997",
-                "tb1qx4g3glhflr42clkkla9ty0vmfcmme9a426mrc2"
+                "tgrs1ql63el50rtln6n4kxa76jrhuts3kxmk9wt87vsh",
+                "tgrs1qa2hyhca4y07xqcl9r9m63rtv4hgdh063h6fgtm",
+                "tgrs1q0lywyl3cdkuw29yuh6w0frqh4hnxdj0m4u6ugc",
+                "tgrs1q4dg72vn06mrjh3yyzpkws3w2z0whrys8g0e75x",
+                "tgrs1qx4g3glhflr42clkkla9ty0vmfcmme9a42llcfj"
             )
         )
     }

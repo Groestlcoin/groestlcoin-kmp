@@ -46,7 +46,7 @@ class TransactionTestsCommon {
         val tx = Transaction.read(hex, Protocol.PROTOCOL_VERSION or Transaction.SERIALIZE_TRANSACTION_NO_WITNESS)
         assertEquals(tx.version, 2)
         assertTrue(tx.txIn.isEmpty())
-        assertEquals(tx.txid, ByteVector32("062d74b3c6183147c30a02addf3c8cd0df10a049ced5677247edd8f114ddb6fb"))
+        assertEquals(tx.txid, ByteVector32("2c753fdc144ac31091e70a12f64ac9e67dbdd50fbd5174eae10a2c8c3d72d297"))
         assertEquals(tx.txOut.size, 2)
         assertEquals(tx.txOut[0].publicKeyScript, ByteVector(Script.write(listOf(OP_DUP, OP_HASH160, OP_PUSHDATA(ByteVector("d0c59903c5bac2868760e90fd521a4665aa76520")), OP_EQUALVERIFY, OP_CHECKSIG))))
         assertEquals(tx.txOut[1].publicKeyScript, ByteVector(Script.write(listOf(OP_HASH160, OP_PUSHDATA(ByteVector("3545e6e33b832c47050f24d3eeb93c9c03948bc7")), OP_EQUAL))))
@@ -64,17 +64,17 @@ class TransactionTestsCommon {
                 throw RuntimeException("unexpected script $script")
             }
         }
-        assertEquals("mkZBYBiq6DNoQEKakpMJegyDbw2YiNQnHT", Base58Check.encode(Base58.Prefix.PubkeyAddressTestnet, publicKeyHash))
+        assertEquals("mkZBYBiq6DNoQEKakpMJegyDbw2Yg6raz1", Base58Check.encode(Base58.Prefix.PubkeyAddressTestnet, publicKeyHash))
     }
 
     @Test
     fun `create and verify simple transactions`() {
-        val address = "mi1cMMSL9BZwTQZYpweE1nTmwRxScirPp3"
+        val address = "mi1cMMSL9BZwTQZYpweE1nTmwRxScjxYvP"
         val (prefix, pubkeyHash) = Base58Check.decode(address)
         assertEquals(prefix, Base58.Prefix.PubkeyAddressTestnet)
         val amount = 1000L.toSatoshi()
 
-        val privateKey = PrivateKey.fromBase58("cRp4uUnreGMZN8vB7nQFX6XWMHU5Lc73HMAhmcDEwHfbgRS66Cqp", Base58.Prefix.SecretKeyTestnet).first
+        val privateKey = PrivateKey.fromBase58("cRp4uUnreGMZN8vB7nQFX6XWMHU5Lc73HMAhmcDEwHfbgRVNfABP", Base58.Prefix.SecretKeyTestnet).first
         val publicKey = privateKey.publicKey()
 
         val previousTx = Transaction.read(
@@ -118,7 +118,7 @@ class TransactionTestsCommon {
         val previousTx = Transaction.read(
             "01000000014100d6a4d20ff14dfffd772aa3610881d66332ed160fc1094a338490513b0cf800000000fc0047304402201182201b586c6bfe6fd0346382900834149674d3cbb4081c304965440b1c0af20220023b62a997f4385e9279dc1078590556c6c6a85c3ec20fda407e95eb270e4de90147304402200c75f91f8bd741a8e71d11ff6a3e931838e32ceead34ccccfe3f73f01a81e45f02201795881473644b5f5ee6a8d8a90fe16e60eacace40e88900c375af2e0c51e26d014c69522103bd95bfc136869e2e5e3b0491e45c32634b0201a03903e210b01be248e04df8702103e04f714a4010ca5bb1423ef97012cb1008fb0dfd2f02acbcd3650771c46e4a8f2102913bd21425454688bdc2df2f0e518c5f3109b1c1be56e6e783a41c394c95dc0953aeffffffff0140420f00000000001976a914298e5c1e2d2cf22deffd2885394376c7712f9c6088ac00000000"
         )
-        val privateKey = PrivateKey.fromBase58("92TgRLMLLdwJjT1JrrmTTWEpZ8uG7zpHEgSVPTbwfAs27RpdeWM", Base58.Prefix.SecretKeyTestnet).first
+        val privateKey = PrivateKey.fromBase58("92TgRLMLLdwJjT1JrrmTTWEpZ8uG7zpHEgSVPTbwfAs27Pea1UQ", Base58.Prefix.SecretKeyTestnet).first
         val publicKey = privateKey.publicKey()
 
         // create and serialize a "2 out of 3" multisig script
@@ -178,17 +178,17 @@ class TransactionTestsCommon {
 
     @Test
     fun `create and sign pay2pk transactions with multiple inputs and outputs`() {
-        val destAddress = "moKHwpsxovDtfBJyoXpof21vvWooBExutV"
+        val destAddress = "moKHwpsxovDtfBJyoXpof21vvWoo8FGS4S"
         val destAmount = 3000000.sat()
-        val changeAddress = "mvHPesWqLXXy7hntNa7vbAoVwqN5PnrwJd"
+        val changeAddress = "mvHPesWqLXXy7hntNa7vbAoVwqN5Rd33su"
         val changeAmount = 1700000.sat()
         val previousTx = listOf(
             Transaction.read("0100000001bb4f5a244b29dc733c56f80c0fed7dd395367d9d3b416c01767c5123ef124f82000000006b4830450221009e6ed264343e43dfee2373b925915f7a4468e0bc68216606e40064561e6c097a022030f2a50546a908579d0fab539d5726a1f83cfd48d29b89ab078d649a8e2131a0012103c80b6c289bf0421d010485cec5f02636d18fb4ed0f33bfa6412e20918ebd7a34ffffffff0200093d00000000001976a9145dbf52b8d7af4fb5f9b75b808f0a8284493531b388acf0b0b805000000001976a914807c74c89592e8a260f04b5a3bc63e7bef8c282588ac00000000"),
             Transaction.read("0100000001345b2a5f872f73de2c4f32e4c28834832ba4c2ce5e54af1e8b897f49766141af00000000fdfe0000483045022100e5a3c850d7cb8776bfbd3fa4b24ce9bb3514fe96a922449dd14c03f5fa04d6ad022035710c6b9c2922c7b8de02fb674cb61e2c18ea439b190b4f55c14fad1ed89eb801483045022100ec6b1ea37cc5694312f7d5fe72280ef21688d11e00f307fdcc1eff30718e30560220542e02c32e3e392cce7adfc287c72f7f1e51ca73980505c2bebcf0b7b441ff90014c6952210394d30868076ab1ea7736ed3bdbec99497a6ad30b25afd709cdf3804cd389996a21032c58bc9615a6ff24e9132cef33f1ef373d97dc6da7933755bc8bb86dbee9f55c2102c4d72d99ca5ad12c17c9cfe043dc4e777075e8835af96f46d8e3ccd929fe192653aeffffffff0100350c00000000001976a914801d5eb10d2c1513ba1960fd8893f0ddbbe33bb388ac00000000")
         )
         val keys = listOf(
-            PrivateKey.fromBase58("cV7LGVeY2VPuCyCSarqEqFCUNig2NzwiAEBTTA89vNRQ4Vqjfurs", Base58.Prefix.SecretKeyTestnet),
-            PrivateKey.fromBase58("93NJN4mhL21FxRbfHZJ2Cou1YnrJmWNkujmZxeT7CPKauJkGv5g", Base58.Prefix.SecretKeyTestnet)
+            PrivateKey.fromBase58("cV7LGVeY2VPuCyCSarqEqFCUNig2NzwiAEBTTA89vNRQ4VnVN7So", Base58.Prefix.SecretKeyTestnet),
+            PrivateKey.fromBase58("93NJN4mhL21FxRbfHZJ2Cou1YnrJmWNkujmZxeT7CPKauEZJnmi", Base58.Prefix.SecretKeyTestnet)
         ).map { it.first }
 
         // create a tx with empty input signature scripts
@@ -215,9 +215,9 @@ class TransactionTestsCommon {
             .updateSigScript(0, listOf(OP_PUSHDATA(sig1), OP_PUSHDATA(keys[0].publicKey().value)))
             .updateSigScript(1, listOf(OP_PUSHDATA(sig2), OP_PUSHDATA(keys[1].publicKey().toUncompressedBin())))
 
-        assertEquals(ByteVector32("882e971dbdb7b762cd07e5db016d3c81267ec5233186a31e6f40457a0a56a311"), tx1.txid)
+        assertEquals(ByteVector32("29e397c116cbe2bd32f4ade9d7c83d782741d16294a871af7eb0ca908c3b21cc"), tx1.txid)
         assertEquals(
-            "01000000026c8a0bb4fef409509800066578a718e9a771082d94e96e0885a4b6a15b720c02000000006b483045022100e5510a2f15f03788ee2aeb2115edc96089596e3a0f0c1b1abfbbf069f4beedb802203faf6ec92a5a4ed2ce5fd42621be99746b57eca0eb46d322dc076080338b6c5a0121030533e1d2e9b7576fef26de1f34d67887158b7af1b040850aab6024b07925d70affffffffaf01f14881716b8acb062c33e7a66fc71e77bb2e4359b1f91b959aeb4f8837f1000000008b483045022100d3e5756f36e39a801c71c406124b3e0a66f0893a7fea46c69939b84715137c40022070a0e96e37c0a8e8c920e84fc63ed1914b4cef114a027f2d027d0a4a04b0b52d0141040081a4cce4c497d51d2f9be2d2109c00cbdef252185ca23074889604ace3504d73fd5f5aaac6423b04e776e467a948e1e79cb8793ded5f4b59c730c4460a0f86ffffffff02c0c62d00000000001976a914558c6b340f5abd22bf97b15cbc1483f8f1b54f5f88aca0f01900000000001976a914a1f93b5b00f9f5e8ade5549b58ed06cdc5c8203e88ac00000000",
+            "01000000029afbc2196c504d8203db948fc2c8cfc8ce88a3ac6a0ff66f2b96091c8834c65b000000006b483045022100b0eb70b55c0694745dd82d23e2e560ef986f5d388a7e4d47d76fce3e63ea0b6d02205ed66d67e4bfec046f4db922d373998f6dd7c2531f9017aa82c9b13b6eb9a0ef0121030533e1d2e9b7576fef26de1f34d67887158b7af1b040850aab6024b07925d70afffffffffad577b0d4584f998e7592e3f065052caa683c93bc975d544eca3db23278f176000000008b4830450221008f0b9d1b52db6ce98ebd6dbee988155f857eee33dce025ebc85f74e51bca5f0d02200a1728c66c8fc3e7c8afcd0429547ddadcb37d9184c0502cbb5789d64e99b69b0141040081a4cce4c497d51d2f9be2d2109c00cbdef252185ca23074889604ace3504d73fd5f5aaac6423b04e776e467a948e1e79cb8793ded5f4b59c730c4460a0f86ffffffff02c0c62d00000000001976a914558c6b340f5abd22bf97b15cbc1483f8f1b54f5f88aca0f01900000000001976a914a1f93b5b00f9f5e8ade5549b58ed06cdc5c8203e88ac00000000",
             tx1.toString(),
         )
 
@@ -233,14 +233,14 @@ class TransactionTestsCommon {
             Transaction.read("01000000016d1f1a7f8c1307139ef78080ba8442852c6766d3fbb826d2ac0e6fb2f72dd8dc000000008b483045022100bdd23d0f98a4173a64fa432b8bf4ac41261a671f2c6c690d57ac839866d78bb202207bddb87ca95c9cef45de30a75144e5513571aa7938635b9e051b1c20f01088a60141044aec194c55c97f4519535f50f5539c6915045ecb79a36281dee6db55ffe1ad2e55f4a1c0e0950d3511e8f205b45cafa348a4a2ab2359246cb3c93f6532c4e8f5ffffffff0140548900000000001976a914c622640075eaeda95a5ac26fa05a0b894a3def8c88ac00000000")
         )
         val keys = listOf(
-            PrivateKey.fromBase58("cW6bSKtH3oMPA18cXSMR8ASHztrmbwmCyqvvN8x3Tc7WG6TyrJDg", Base58.Prefix.SecretKeyTestnet),
-            PrivateKey.fromBase58("93Ag8t83NW9WmPbhqLCSUNckARpbpgWtp4EWGidtj6h6pVQgGN4", Base58.Prefix.SecretKeyTestnet),
-            PrivateKey.fromBase58("921vnTeSQCN7GMHdiHyaoZ1JSugTtzvg8rqyXH9HmFtBgrNDxCT", Base58.Prefix.SecretKeyTestnet)
+            PrivateKey.fromBase58("cW6bSKtH3oMPA18cXSMR8ASHztrmbwmCyqvvN8x3Tc7WG6TMdLme", Base58.Prefix.SecretKeyTestnet),
+            PrivateKey.fromBase58("93Ag8t83NW9WmPbhqLCSUNckARpbpgWtp4EWGidtj6h6pWwDZZU", Base58.Prefix.SecretKeyTestnet),
+            PrivateKey.fromBase58("921vnTeSQCN7GMHdiHyaoZ1JSugTtzvg8rqyXH9HmFtBgoPHPKs", Base58.Prefix.SecretKeyTestnet)
         ).map { it.first }
 
-        val dest1 = "n2Jrcf7cJH7wMJdhKZGVi2jaSnV2BwYE9m"
+        val dest1 = "n2Jrcf7cJH7wMJdhKZGVi2jaSnV28ELxmt"
         // priv: 926iWgQDq5dN84BJ4q2fu4wjSSaVWFxwanE8EegzMh3vGCUBJ94
-        val dest2 = "mk6kmMF5EEXksBkZxi7FniwwRgWuZuwDpo"
+        val dest2 = "mk6kmMF5EEXksBkZxi7FniwwRgWuZ4FBHp"
         // priv: 91r7coHBdzfgfm2p3ToJ3Bu6kcqL3BvSo5m4ENzMZzsimRKH8aq
         val amount1 = 3_000_000.sat() // 0.03 btc
         val amount2 = 7_000_000.sat() // 0.07 btc
@@ -274,9 +274,9 @@ class TransactionTestsCommon {
             .updateSigScript(1, listOf(OP_PUSHDATA(sig2), OP_PUSHDATA(keys[1].publicKey().toUncompressedBin())))
             .updateSigScript(2, listOf(OP_PUSHDATA(sig3), OP_PUSHDATA(keys[2].publicKey().toUncompressedBin())))
 
-        assertEquals(signedTx.txid, ByteVector32("e8570dd062de8e354b18f6308ff739a51f25db75563c4ee2bc5849281263528f"))
+        assertEquals(signedTx.txid, ByteVector32("105b7d06f689efcfc7e765f983c061afc708458358fd748ae163cff402ce55a6"))
         assertEquals(
-            "0100000003864d5e5ec82c9e6f4ac52b8fa47b77f8616bbc26fcf668432c097c5add169584010000006a47304402203be0cff1faacadce3b02d615a8ac15532f9a90bd30e109eaa3e01bfa3a97d90b0220355f3bc382e35b9cae24e5d674f200b289bb948675ce1b5c931029ccb23ae836012102fd18c2a069488288ae93c2157dff3fd657a39426e8753512a5547f046b4a2cbbffffffffd587b10688e6d56225dd4dc488b74229a353e4613cbe1deadaef52b56616baa9000000008b483045022100ab98145e8526b32e821beeaed41a98da68c3c75ee13c477ee0e3d66a626217e902204d015af2e7dba834bbe421dd0b1353a1060dafee58c284dd763e07639858f9340141043ca81d9fe7996372eb21b2588af07c7fbdb6d4fc1da13aaf953c520ba1da4f87d53dfcba3525369fdb248e60233fdf6df0a8183a6dd5699c9a6f5c537367c627ffffffff94a162b4aab080a09fa982a5d7f586045ba2a4c653c98ff47b952d43c25b45fd000000008a47304402200e0c0223d169282a48731b58ff0673c00205deb3f3f4f28d99b50730ada1571402202fa9f051762d8e0199791ea135df1f393578c1eea530bec00fa16f6bba7e3aa3014104626f9b06c44bcfd5d2f6bdeab456591287e2d2b2e299815edf0c9fd0f23c21364ed5dbe97c9c6e2be40fff40c31f8561a9dee015146fe59ecf68b8a377292c72ffffffff02c0c62d00000000001976a914e410e8bc694e8a39c32a273eb1d71930f63648fe88acc0cf6a00000000001976a914324505870d6f21dca7d2f90642cd9603553f6fa688ac00000000",
+            "01000000032d498f480db21d4931114c0f1cb8d631b72f52579aa90af23f7e7135888ea8ab010000006b483045022100998c3c250f94493b815136175e22d38724a0d7a245375cfa2f75bb2c7c479d7102201e2a3a94861535663023a43047474ebe8e74c29c8d17f61d87a6b6207334be85012102fd18c2a069488288ae93c2157dff3fd657a39426e8753512a5547f046b4a2cbbffffffffb115d995bc460a7c8e8f27131fcf9c4a9a3124a33e944f4500d7163cbea0a235000000008a47304402204b3fb1aab80a7ed290230aeef6e65d42dbfa83eb5a59448910cc34a30f27c06202203176079f4f9db65540beb96d9c1107902a7cff83317feba4e7f97459dc7b042c0141043ca81d9fe7996372eb21b2588af07c7fbdb6d4fc1da13aaf953c520ba1da4f87d53dfcba3525369fdb248e60233fdf6df0a8183a6dd5699c9a6f5c537367c627ffffffff084d8f7669ec378c3c0b0e3cfd2d68784232e344cdbec956e00ce74070178ff3000000008a4730440220739be41f88c7f37e89f1f62651ed142d5d63845f91f1dd29918d59a244cd20d2022007fc6dd27c2a17bdbae079fd9df99865605f2511db39c427a3d9f82433bf98d5014104626f9b06c44bcfd5d2f6bdeab456591287e2d2b2e299815edf0c9fd0f23c21364ed5dbe97c9c6e2be40fff40c31f8561a9dee015146fe59ecf68b8a377292c72ffffffff02c0c62d00000000001976a914e410e8bc694e8a39c32a273eb1d71930f63648fe88acc0cf6a00000000001976a914324505870d6f21dca7d2f90642cd9603553f6fa688ac00000000",
             signedTx.toString()
         )
 

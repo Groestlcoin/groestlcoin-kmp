@@ -16,8 +16,9 @@
 
 package fr.acinq.bitcoin
 
+import kotlin.test.Ignore
 import kotlin.test.Test
-
+@Ignore
 class PuzzleTestsCommon {
     @Test
     fun `handle puzzle a59012de71dafa1510fd57d339ff488d50da4808c9fd4c001d6de8874d8aa26d`() {

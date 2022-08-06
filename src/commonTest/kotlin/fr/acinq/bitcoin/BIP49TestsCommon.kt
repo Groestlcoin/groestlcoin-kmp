@@ -25,22 +25,22 @@ class BIP49TestsCommon {
     fun `BIP49 reference tests`() {
         val seed = MnemonicCode.toSeed("abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about".split(" "), "")
         val master = DeterministicWallet.generate(seed)
-        assertEquals(DeterministicWallet.encode(master, DeterministicWallet.tprv), "tprv8ZgxMBicQKsPe5YMU9gHen4Ez3ApihUfykaqUorj9t6FDqy3nP6eoXiAo2ssvpAjoLroQxHqr3R5nE3a5dU3DHTjTgJDd7zrbniJr6nrCzd")
+        assertEquals(DeterministicWallet.encode(master, DeterministicWallet.tprv), "tprv8ZgxMBicQKsPe5YMU9gHen4Ez3ApihUfykaqUorj9t6FDqy3nP6eoXiAo2ssvpAjoLroQxHqr3R5nE3a5dU3DHTjTgJDd7zrbniJr9EJtNa")
 
-        val accountKey = DeterministicWallet.derivePrivateKey(master, KeyPath("m/49'/1'/0'"))
-        assertEquals(DeterministicWallet.encode(accountKey, DeterministicWallet.tprv), "tprv8gRrNu65W2Msef2BdBSUgFdRTGzC8EwVXnV7UGS3faeXtuMVtGfEdidVeGbThs4ELEoayCAzZQ4uUji9DUiAs7erdVskqju7hrBcDvDsdbY")
+        val accountKey = DeterministicWallet.derivePrivateKey(master, KeyPath("m/49'/17'/0'"))
+        assertEquals(DeterministicWallet.encode(accountKey, DeterministicWallet.tprv), "tprv8fuRWmvJp34SwjVLWXomykkuKg1z1EAx3LE1Mdx18ZsCundRac81zNPyqt2aCajLiF7SqefQZcQuQqW91s7dsnqhSqXca6GvMN7nXzY6gAy")
 
         val key = DeterministicWallet.derivePrivateKey(accountKey, listOf(0L, 0L))
-        assertEquals(key.secretkeybytes, DeterministicWallet.derivePrivateKey(master, KeyPath("m/49'/1'/0'/0/0")).secretkeybytes)
-        assertEquals(key.privateKey.toBase58(Base58.Prefix.SecretKeyTestnet), "cULrpoZGXiuC19Uhvykx7NugygA3k86b3hmdCeyvHYQZSxojGyXJ")
+        assertEquals(key.secretkeybytes, DeterministicWallet.derivePrivateKey(master, KeyPath("m/49'/17'/0'/0/0")).secretkeybytes)
+        assertEquals(key.privateKey.toBase58(Base58.Prefix.SecretKeyTestnet), "cVR6S68n8cTDPnLSaMGQ76iVdN6129CvUmFt9hEzRadSaZNMTLjx")
         assertEquals(
             key.privateKey,
-            PrivateKey.fromHex("c9bdb49cfbaedca21c4b1f3a7803c34636b1d7dc55a717132443fc3f4c5867e801")
+            PrivateKey.fromHex("e9c1c34e450f2957f89a9c491a1976206a5425e0afa8401240f2309665c9efad")
         )
         assertEquals(
             key.publicKey,
-            PublicKey.fromHex("03a1af804ac108a8a51782198c2d034b28bf90c8803f5a53f76276fa69a4eae77f")
+            PublicKey.fromHex("0212f4f7e43bae1bc53ef94dbef85f8348550975f5fd8f3693c19757223692e8dd")
         )
-        assertEquals(computeBIP49Address(key.publicKey, Block.TestnetGenesisBlock.hash), "2Mww8dCYPUpKHofjgcXcBCEGmniw9CoaiD2")
+        assertEquals(computeBIP49Address(key.publicKey, Block.TestnetGenesisBlock.hash), "2MshMUPxykeJLYNCSjQpDYi1MdwPLmSBx7d")
     }
 }

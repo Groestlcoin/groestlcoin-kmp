@@ -48,9 +48,9 @@ public object Bech32 {
 
     @JvmStatic
     public fun hrp(chainHash: ByteVector32): String = when (chainHash) {
-        Block.TestnetGenesisBlock.hash -> "tb"
-        Block.RegtestGenesisBlock.hash -> "bcrt"
-        Block.LivenetGenesisBlock.hash -> "bc"
+        Block.TestnetGenesisBlock.hash -> "tgrs"
+        Block.RegtestGenesisBlock.hash -> "grsrt"
+        Block.LivenetGenesisBlock.hash -> "grs"
         else -> error("invalid chain hash $chainHash")
     }
 

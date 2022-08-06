@@ -1063,7 +1063,7 @@ public object Script {
                 )
                 head == OP_HASH256 -> run(
                     tail,
-                    listOf(Crypto.hash256(stack.first()).byteVector()) + stack.tail(),
+                    listOf(Crypto.groestl(stack.first()).byteVector()) + stack.tail(),
                     state.copy(opCount = state.opCount + 1),
                     signatureVersion
                 )

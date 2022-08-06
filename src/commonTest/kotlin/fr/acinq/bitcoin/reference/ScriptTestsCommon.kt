@@ -40,12 +40,13 @@ import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.double
 import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonPrimitive
+import kotlin.test.Ignore
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class ScriptTestsCommon {
 
-    @Test
+    @Test @Ignore
     fun `reference client script test`() {
         // 	["Format is: [[wit..., amount]?, scriptSig, scriptPubKey, flags, expected_scripterror, ... comments]"]
         val tests = TransactionTestsCommon.readData("data/script_tests.json")

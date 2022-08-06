@@ -42,7 +42,7 @@ public data class BlockHeader(
     @JvmField val nonce: Long
 ) : BtcSerializable<BlockHeader> {
     @JvmField
-    public val hash: ByteVector32 = ByteVector32(Crypto.hash256(write(this)))
+    public val hash: ByteVector32 = ByteVector32(Crypto.groestl(write(this)))
 
     @JvmField
     public val blockId: ByteVector32 = hash.reversed()
@@ -244,7 +244,7 @@ public data class Block(@JvmField val header: BlockHeader, @JvmField val tx: Lis
             val script = listOf(
                 OP_PUSHDATA(writeUInt32(486604799u)),
                 OP_PUSHDATA(ByteVector("04")),
-                OP_PUSHDATA("The Times 03/Jan/2009 Chancellor on brink of second bailout for banks".encodeToByteArray())
+                OP_PUSHDATA("Pressure must be put on Vladimir Putin over Crimea".encodeToByteArray())
             )
             val scriptPubKey = listOf(
                 OP_PUSHDATA(ByteVector("04678afdb0fe5548271967f1a67130b7105cd6a828e03909a67962e0ea1f61deb649f6bc3f4cef38c4f35504e51ec112de5c384df7ba0b8d578a4c702b6bf11d5f")),
@@ -252,18 +252,18 @@ public data class Block(@JvmField val header: BlockHeader, @JvmField val tx: Lis
             )
             Block(
                 BlockHeader(
-                    version = 1,
+                    version = 112,
                     hashPreviousBlock = ByteVector32.Zeroes,
-                    hashMerkleRoot = ByteVector32("3ba3edfd7a7b12b27ac72c3e67768f617fc81bc3888a51323a9fb8aa4b1e5e4a"),
-                    time = 1231006505,
-                    bits = 0x1d00ffff,
-                    nonce = 2083236893
+                    hashMerkleRoot = ByteVector32("bb2866aaca46c4428ad08b57bc9d1493abaf64724b6c3052a7c8f958df68e93c"),
+                    time = 1395342829,
+                    bits = 0x1e0fffff,
+                    nonce = 220035
                 ),
                 listOf(
                     Transaction(
                         version = 1,
                         txIn = listOf(TxIn.coinbase(script)),
-                        txOut = listOf(TxOut(amount = 5000000000.toSatoshi(), publicKeyScript = scriptPubKey)),
+                        txOut = listOf(TxOut(amount = 0.toSatoshi(), publicKeyScript = scriptPubKey)),
                         lockTime = 0
                     )
                 )
@@ -272,15 +272,15 @@ public data class Block(@JvmField val header: BlockHeader, @JvmField val tx: Lis
 
         @JvmField
         public val TestnetGenesisBlock: Block = LivenetGenesisBlock.copy(
-            header = LivenetGenesisBlock.header.copy(time = 1296688602, nonce = 414098458)
+            header = LivenetGenesisBlock.header.copy(time = 1440000002, bits = 0x1e00FFFF, nonce = 6556309)
         )
 
         @JvmField
         public val RegtestGenesisBlock: Block = LivenetGenesisBlock.copy(
             header = LivenetGenesisBlock.header.copy(
-                bits = 0x207fffffL,
-                nonce = 2,
-                time = 1296688602
+                bits = 0x1e00FFFF,
+                nonce = 6556309,
+                time = 1440000002
             )
         )
 
@@ -292,6 +292,5 @@ public data class Block(@JvmField val header: BlockHeader, @JvmField val tx: Lis
                 nonce = 0
             )
         )
-
     }
 }

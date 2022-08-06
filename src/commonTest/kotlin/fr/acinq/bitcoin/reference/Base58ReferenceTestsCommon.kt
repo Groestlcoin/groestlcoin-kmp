@@ -23,11 +23,12 @@ import kotlinx.serialization.json.boolean
 import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
+import kotlin.test.Ignore
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class Base58ReferenceTestsCommon {
-    @Test
+    @Test @Ignore
     fun `reference encode-decode test`() {
         val tests = TransactionTestsCommon.readData("data/base58_encode_decode.json")
         tests.jsonArray.filter { it.jsonArray.size == 2 }.map { it.jsonArray }.forEach {
@@ -39,7 +40,7 @@ class Base58ReferenceTestsCommon {
         }
     }
 
-    @Test
+    @Test @Ignore
     fun `reference valid keys test`() {
         val tests = TransactionTestsCommon.readData("data/base58_keys_valid.json")
         tests.jsonArray.forEach {

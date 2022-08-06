@@ -21,7 +21,7 @@ import kotlin.jvm.JvmStatic
 
 public object Base58 {
     public object Prefix {
-        public const val PubkeyAddress: Byte = 0.toByte()
+        public const val PubkeyAddress: Byte = 36.toByte()
         public const val ScriptAddress: Byte = 5.toByte()
         public const val SecretKey: Byte = 128.toByte()
         public const val PubkeyAddressTestnet: Byte = 111.toByte()
@@ -169,7 +169,7 @@ public object Base58 {
 public object Base58Check {
 
     @JvmStatic
-    public fun checksum(data: ByteArray): ByteArray = Crypto.hash256(data).copyOf(4)
+    public fun checksum(data: ByteArray): ByteArray = Crypto.groestl(data).copyOf(4)
 
     @JvmStatic
     public fun encode(prefix: Int, data: ByteArray): String = encode(Pack.writeInt32BE(prefix), data)

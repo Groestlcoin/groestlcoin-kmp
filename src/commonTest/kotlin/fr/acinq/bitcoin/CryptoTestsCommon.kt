@@ -31,8 +31,8 @@ class CryptoTestsCommon {
     @Test
     fun `import private keys`() {
         // exported from the bitcoin client running in testnet mode
-        val address = "mhW1BQDyhbTsnHEuB1n7yuj9V81TbeRfTY"
-        val privateKey = "cRp4uUnreGMZN8vB7nQFX6XWMHU5Lc73HMAhmcDEwHfbgRS66Cqp"
+        val address = "mhW1BQDyhbTsnHEuB1n7yuj9V81TbuKWRh"
+        val privateKey = "cRp4uUnreGMZN8vB7nQFX6XWMHU5Lc73HMAhmcDEwHfbgRVNfABP"
 
         val (version, _) = Base58Check.decode(privateKey)
         assertEquals(Base58.Prefix.SecretKeyTestnet, version)
@@ -84,7 +84,7 @@ class CryptoTestsCommon {
         assertEquals(publicKey2.value, ByteVector("03D7E9DD0C618C65DC2E3972E2AA406CCD34E5E77895C96DC48AF0CB16A1D9B8CE"))
 
         val address = Base58Check.encode(Base58.Prefix.PubkeyAddress, Crypto.hash160(publicKey2.toUncompressedBin()))
-        assertEquals(address, "19FgFQGZy47NcGTJ4hfNdGMwS8EATqoa1X")
+        assertEquals(address, "FdRPhJzwXYnv3sUQwoer5nAG6HW83PQKAp")
     }
 
     @Test
@@ -140,7 +140,7 @@ class CryptoTestsCommon {
     @Test
     fun `sign and verify signatures`() {
         val privateKey = PrivateKey.fromBase58(
-            "cRp4uUnreGMZN8vB7nQFX6XWMHU5Lc73HMAhmcDEwHfbgRS66Cqp",
+            "cRp4uUnreGMZN8vB7nQFX6XWMHU5Lc73HMAhmcDEwHfbgRVNfABP",
             Base58.Prefix.SecretKeyTestnet
         ).first
         val publicKey = privateKey.publicKey()
@@ -283,6 +283,13 @@ class CryptoTestsCommon {
                 }
             }
         }
+    }
+    @Test
+    fun testGroestl() {
+        assertEquals(
+            Hex.encode(Crypto.groestl(Hex.decode("700000000000000000000000000000000000000000000000000000000000000000000000bb2866aaca46c4428ad08b57bc9d1493abaf64724b6c3052a7c8f958df68e93c29ab5f49ffff001d1dac2b7c"))),
+            "f7283464f9c381f54154a0eb19e66dc44850d3cad22bf1798fbd3e450ccdddf1"
+        )
     }
 
 }

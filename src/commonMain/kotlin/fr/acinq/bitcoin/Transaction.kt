@@ -270,7 +270,7 @@ public data class Transaction(
     public val hasWitness: Boolean get() = txIn.any { it.hasWitness }
 
     @JvmField
-    public val hash: ByteVector32 = Crypto.hash256(Transaction.write(this, SERIALIZE_TRANSACTION_NO_WITNESS)).byteVector32()
+    public val hash: ByteVector32 = Crypto.sha256(Transaction.write(this, SERIALIZE_TRANSACTION_NO_WITNESS)).byteVector32()
 
     @JvmField
     public val txid: ByteVector32 = hash.reversed()
@@ -503,7 +503,7 @@ public data class Transaction(
                 ByteVector32.One.toByteArray()
             } else {
                 val txCopy = prepareForSigning(tx, inputIndex, previousOutputScript, sighashType)
-                Crypto.hash256(Transaction.write(txCopy, SERIALIZE_TRANSACTION_NO_WITNESS) + writeUInt32(sighashType.toUInt()))
+                Crypto.sha256(Transaction.write(txCopy, SERIALIZE_TRANSACTION_NO_WITNESS) + writeUInt32(sighashType.toUInt()))
             }
         }
 
@@ -524,21 +524,21 @@ public data class Transaction(
                     val hashPrevOut = if (!SigHash.isAnyoneCanPay(sighashType)) {
                         val arrays = tx.txIn.map { it.outPoint }.map { OutPoint.write(it, PROTOCOL_VERSION) }
                         val concatenated = arrays.fold(ByteArray(0)) { acc, b -> acc + b }
-                        Crypto.hash256(concatenated)
+                        Crypto.sha256(concatenated)
                     } else ByteArray(32)
 
                     val hashSequence = if (!SigHash.isAnyoneCanPay(sighashType) && !SigHash.isHashSingle(sighashType) && !SigHash.isHashNone(sighashType)) {
                         val arrays = tx.txIn.map { it.sequence }.map { writeUInt32(it.toUInt()) }
                         val concatenated = arrays.fold(ByteArray(0)) { acc, b -> acc + b }
-                        Crypto.hash256(concatenated)
+                        Crypto.sha256(concatenated)
                     } else ByteArray(32)
 
                     val hashOutputs = if (!SigHash.isHashSingle(sighashType) && !SigHash.isHashNone(sighashType)) {
                         val arrays = tx.txOut.map { TxOut.write(it, PROTOCOL_VERSION) }
                         val concatenated = arrays.fold(ByteArray(0)) { acc, b -> acc + b }
-                        Crypto.hash256(concatenated)
+                        Crypto.sha256(concatenated)
                     } else if (SigHash.isHashSingle(sighashType) && inputIndex < tx.txOut.count()) {
-                        Crypto.hash256(TxOut.write(tx.txOut[inputIndex], PROTOCOL_VERSION))
+                        Crypto.sha256(TxOut.write(tx.txOut[inputIndex], PROTOCOL_VERSION))
                     } else ByteArray(32)
 
                     val out = ByteArrayOutput()
@@ -553,7 +553,7 @@ public data class Transaction(
                     writeUInt32(tx.lockTime.toUInt(), out)
                     writeUInt32(sighashType.toUInt(), out)
                     val preimage = out.toByteArray()
-                    return Crypto.hash256(preimage)
+                    return Crypto.sha256(preimage)
                 }
                 else -> return hashForSigning(tx, inputIndex, previousOutputScript, sighashType)
             }

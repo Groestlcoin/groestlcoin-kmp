@@ -2,16 +2,15 @@ import org.jetbrains.dokka.Platform
 import org.jetbrains.kotlin.gradle.targets.jvm.tasks.KotlinJvmTest
 import org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeHostTest
 import org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeSimulatorTest
-
 plugins {
-    kotlin("multiplatform") version "1.5.31"
-    id("org.jetbrains.dokka") version "1.5.30"
+    kotlin("multiplatform") version "1.6.10"
+    id("org.jetbrains.dokka") version "1.6.10"
     `maven-publish`
 }
 
 val currentOs = org.gradle.internal.os.OperatingSystem.current()
 
-group = "fr.acinq.bitcoin"
+group = "com.github.groestlcoin"
 version = "0.8.4"
 
 repositories {
@@ -43,6 +42,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 api("fr.acinq.secp256k1:secp256k1-kmp:$secp256k1KmpVersion")
+                api("com.appmattus.crypto:cryptohash:0.10.1")
             }
         }
         val commonTest by getting {
@@ -76,7 +76,7 @@ kotlin {
     targets.all {
         compilations.all {
             kotlinOptions {
-                allWarningsAsErrors = true
+                allWarningsAsErrors = false // upstream is on
             }
         }
     }
@@ -154,8 +154,8 @@ publishing {
         version = project.version.toString()
         artifact(javadocJar)
         pom {
-            name.set("Kotlin Multiplatform Bitcoin Library")
-            description.set("A simple Kotlin Multiplatform library which implements most of the bitcoin protocol")
+            name.set("Kotlin Multiplatform Groestlcoin Library")
+            description.set("A simple Kotlin Multiplatform library which implements most of the groestlcoin protocol")
             url.set("https://github.com/ACINQ/bitcoin-kmp")
             licenses {
                 license {
@@ -165,16 +165,16 @@ publishing {
             }
             issueManagement {
                 system.set("Github")
-                url.set("https://github.com/ACINQ/bitcoin-kmp/issues")
+                url.set("https://github.com/Groestlcoin/groestlcoin-kmp/issues")
             }
             scm {
-                connection.set("https://github.com/ACINQ/bitcoin-kmp.git")
-                url.set("https://github.com/ACINQ/bitcoin-kmp")
+                connection.set("https://github.com/Groestlcoin/Groestlcoin/groestlcoin-kmp.git")
+                url.set("https://github.com/Groestlcoin/groestlcoin-kmp")
             }
             developers {
                 developer {
-                    name.set("ACINQ")
-                    email.set("hello@acinq.co")
+                    name.set("hashengineering")
+                    email.set("hashengineeringsolutions@gmail.com")
                 }
             }
         }
