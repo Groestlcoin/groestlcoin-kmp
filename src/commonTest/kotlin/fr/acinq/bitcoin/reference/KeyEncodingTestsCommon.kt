@@ -22,12 +22,13 @@ import kotlinx.serialization.json.boolean
 import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
+import kotlin.test.Ignore
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 class KeyEncodingTestsCommon {
-    @Test
+    @Test @Ignore
     fun `valid keys`() {
         val tests = TransactionTestsCommon.readData("data/key_io_valid.json")
         tests.jsonArray.filter { it.jsonArray.size == 3 }.map { it.jsonArray }.forEach {
