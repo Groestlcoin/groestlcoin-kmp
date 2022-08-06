@@ -25,10 +25,10 @@ import fr.acinq.bitcoin.utils.Either
 import fr.acinq.bitcoin.utils.flatMap
 import fr.acinq.secp256k1.Hex
 import kotlin.test.*
-
+@Ignore
 class PsbtTestsCommon {
 
-    private val masterPrivKey = DeterministicWallet.ExtendedPrivateKey.decode("tprv8ZgxMBicQKsPd9TeAdPADNnSyH9SSUUbTVeFszDE23Ki6TBB5nCefAdHkK8Fm3qMQR6sHwA56zqRmKmxnHk37JkiFzvncDqoKmPWubu7hDF").second
+    private val masterPrivKey = DeterministicWallet.ExtendedPrivateKey.decode("tprv8ZgxMBicQKsPd9TeAdPADNnSyH9SSUUbTVeFszDE23Ki6TBB5nCefAdHkK8Fm3qMQR6sHwA56zqRmKmxnHk37JkiFzvncDqoKmPWufsJPLQ").second
 
     @Test
     fun `invalid psbts`() {
