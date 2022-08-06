@@ -58,12 +58,24 @@ public object Crypto {
         Digest.sha256().let { it.hash(it.hash(input, offset, len)) }
 
     @JvmStatic
+    public fun groestl(input: ByteArray, offset: Int, len: Int): ByteArray =
+        Digest.groestl().hash(input, offset, len)
+
+    @JvmStatic
     public fun hash256(input: ByteArray): ByteArray =
         hash256(input, 0, input.size)
 
     @JvmStatic
     public fun hash256(input: ByteVector): ByteArray =
         hash256(input.toByteArray(), 0, input.size())
+
+    @JvmStatic
+    public fun groestl(input: ByteArray): ByteArray =
+        groestl(input, 0, input.size)
+
+    @JvmStatic
+    public fun groestl(input: ByteVector): ByteArray =
+        groestl(input.toByteArray(), 0, input.size())
 
     @JvmStatic
     public fun hash160(input: ByteArray, offset: Int, len: Int): ByteArray =

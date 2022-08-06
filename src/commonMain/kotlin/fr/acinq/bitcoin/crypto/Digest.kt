@@ -16,6 +16,7 @@
 
 package fr.acinq.bitcoin.crypto
 
+import com.github.groestlcoin.Groestl
 import kotlin.jvm.JvmStatic
 
 public interface Digest {
@@ -78,6 +79,7 @@ public interface Digest {
         @JvmStatic public fun sha256(): Digest = Sha256()
         @JvmStatic public fun sha512(): Digest = Sha512()
         @JvmStatic public fun ripemd160(): Digest = Ripemd160()
+        @JvmStatic public fun groestl(): Digest = Groestl()
     }
 }
 

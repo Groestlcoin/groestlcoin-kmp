@@ -42,7 +42,7 @@ public data class BlockHeader(
     @JvmField val nonce: Long
 ) : BtcSerializable<BlockHeader> {
     @JvmField
-    public val hash: ByteVector32 = ByteVector32(Crypto.hash256(write(this)))
+    public val hash: ByteVector32 = ByteVector32(Crypto.groestl(write(this)))
 
     @JvmField
     public val blockId: ByteVector32 = hash.reversed()
