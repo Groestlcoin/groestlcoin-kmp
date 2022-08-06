@@ -284,5 +284,12 @@ class CryptoTestsCommon {
             }
         }
     }
+    @Test
+    fun testGroestl() {
+        assertEquals(
+            Hex.encode(Crypto.groestl(Hex.decode("700000000000000000000000000000000000000000000000000000000000000000000000bb2866aaca46c4428ad08b57bc9d1493abaf64724b6c3052a7c8f958df68e93c29ab5f49ffff001d1dac2b7c"))),
+            "f7283464f9c381f54154a0eb19e66dc44850d3cad22bf1798fbd3e450ccdddf1"
+        )
+    }
 
 }
