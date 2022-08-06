@@ -11,7 +11,7 @@ plugins {
 
 val currentOs = org.gradle.internal.os.OperatingSystem.current()
 
-group = "fr.acinq.bitcoin"
+group = "com.github.groestlcoin"
 version = "0.8.4"
 
 repositories {
@@ -154,8 +154,8 @@ publishing {
         version = project.version.toString()
         artifact(javadocJar)
         pom {
-            name.set("Kotlin Multiplatform Bitcoin Library")
-            description.set("A simple Kotlin Multiplatform library which implements most of the bitcoin protocol")
+            name.set("Kotlin Multiplatform Groestlcoin Library")
+            description.set("A simple Kotlin Multiplatform library which implements most of the groestlcoin protocol")
             url.set("https://github.com/ACINQ/bitcoin-kmp")
             licenses {
                 license {
@@ -165,16 +165,16 @@ publishing {
             }
             issueManagement {
                 system.set("Github")
-                url.set("https://github.com/ACINQ/bitcoin-kmp/issues")
+                url.set("https://github.com/Groestlcoin/groestlcoin-kmp/issues")
             }
             scm {
-                connection.set("https://github.com/ACINQ/bitcoin-kmp.git")
-                url.set("https://github.com/ACINQ/bitcoin-kmp")
+                connection.set("https://github.com/Groestlcoin/Groestlcoin/groestlcoin-kmp.git")
+                url.set("https://github.com/Groestlcoin/groestlcoin-kmp")
             }
             developers {
                 developer {
-                    name.set("ACINQ")
-                    email.set("hello@acinq.co")
+                    name.set("hashengineering")
+                    email.set("hashengineeringsolutions@gmail.com")
                 }
             }
         }
