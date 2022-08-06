@@ -42,6 +42,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 api("fr.acinq.secp256k1:secp256k1-kmp:$secp256k1KmpVersion")
+                api("com.appmattus.crypto:cryptohash:0.10.1")
             }
         }
         val commonTest by getting {
