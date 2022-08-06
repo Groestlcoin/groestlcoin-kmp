@@ -64,17 +64,17 @@ class TransactionTestsCommon {
                 throw RuntimeException("unexpected script $script")
             }
         }
-        assertEquals("mkZBYBiq6DNoQEKakpMJegyDbw2YiNQnHT", Base58Check.encode(Base58.Prefix.PubkeyAddressTestnet, publicKeyHash))
+        assertEquals("mkZBYBiq6DNoQEKakpMJegyDbw2Yg6raz1", Base58Check.encode(Base58.Prefix.PubkeyAddressTestnet, publicKeyHash))
     }
 
     @Test
     fun `create and verify simple transactions`() {
-        val address = "mi1cMMSL9BZwTQZYpweE1nTmwRxScirPp3"
+        val address = "mi1cMMSL9BZwTQZYpweE1nTmwRxScjxYvP"
         val (prefix, pubkeyHash) = Base58Check.decode(address)
         assertEquals(prefix, Base58.Prefix.PubkeyAddressTestnet)
         val amount = 1000L.toSatoshi()
 
-        val privateKey = PrivateKey.fromBase58("cRp4uUnreGMZN8vB7nQFX6XWMHU5Lc73HMAhmcDEwHfbgRS66Cqp", Base58.Prefix.SecretKeyTestnet).first
+        val privateKey = PrivateKey.fromBase58("cRp4uUnreGMZN8vB7nQFX6XWMHU5Lc73HMAhmcDEwHfbgRVNfABP", Base58.Prefix.SecretKeyTestnet).first
         val publicKey = privateKey.publicKey()
 
         val previousTx = Transaction.read(
@@ -118,7 +118,7 @@ class TransactionTestsCommon {
         val previousTx = Transaction.read(
             "01000000014100d6a4d20ff14dfffd772aa3610881d66332ed160fc1094a338490513b0cf800000000fc0047304402201182201b586c6bfe6fd0346382900834149674d3cbb4081c304965440b1c0af20220023b62a997f4385e9279dc1078590556c6c6a85c3ec20fda407e95eb270e4de90147304402200c75f91f8bd741a8e71d11ff6a3e931838e32ceead34ccccfe3f73f01a81e45f02201795881473644b5f5ee6a8d8a90fe16e60eacace40e88900c375af2e0c51e26d014c69522103bd95bfc136869e2e5e3b0491e45c32634b0201a03903e210b01be248e04df8702103e04f714a4010ca5bb1423ef97012cb1008fb0dfd2f02acbcd3650771c46e4a8f2102913bd21425454688bdc2df2f0e518c5f3109b1c1be56e6e783a41c394c95dc0953aeffffffff0140420f00000000001976a914298e5c1e2d2cf22deffd2885394376c7712f9c6088ac00000000"
         )
-        val privateKey = PrivateKey.fromBase58("92TgRLMLLdwJjT1JrrmTTWEpZ8uG7zpHEgSVPTbwfAs27RpdeWM", Base58.Prefix.SecretKeyTestnet).first
+        val privateKey = PrivateKey.fromBase58("92TgRLMLLdwJjT1JrrmTTWEpZ8uG7zpHEgSVPTbwfAs27Pea1UQ", Base58.Prefix.SecretKeyTestnet).first
         val publicKey = privateKey.publicKey()
 
         // create and serialize a "2 out of 3" multisig script
@@ -178,17 +178,17 @@ class TransactionTestsCommon {
 
     @Test
     fun `create and sign pay2pk transactions with multiple inputs and outputs`() {
-        val destAddress = "moKHwpsxovDtfBJyoXpof21vvWooBExutV"
+        val destAddress = "moKHwpsxovDtfBJyoXpof21vvWoo8FGS4S"
         val destAmount = 3000000.sat()
-        val changeAddress = "mvHPesWqLXXy7hntNa7vbAoVwqN5PnrwJd"
+        val changeAddress = "mvHPesWqLXXy7hntNa7vbAoVwqN5Rd33su"
         val changeAmount = 1700000.sat()
         val previousTx = listOf(
             Transaction.read("0100000001bb4f5a244b29dc733c56f80c0fed7dd395367d9d3b416c01767c5123ef124f82000000006b4830450221009e6ed264343e43dfee2373b925915f7a4468e0bc68216606e40064561e6c097a022030f2a50546a908579d0fab539d5726a1f83cfd48d29b89ab078d649a8e2131a0012103c80b6c289bf0421d010485cec5f02636d18fb4ed0f33bfa6412e20918ebd7a34ffffffff0200093d00000000001976a9145dbf52b8d7af4fb5f9b75b808f0a8284493531b388acf0b0b805000000001976a914807c74c89592e8a260f04b5a3bc63e7bef8c282588ac00000000"),
             Transaction.read("0100000001345b2a5f872f73de2c4f32e4c28834832ba4c2ce5e54af1e8b897f49766141af00000000fdfe0000483045022100e5a3c850d7cb8776bfbd3fa4b24ce9bb3514fe96a922449dd14c03f5fa04d6ad022035710c6b9c2922c7b8de02fb674cb61e2c18ea439b190b4f55c14fad1ed89eb801483045022100ec6b1ea37cc5694312f7d5fe72280ef21688d11e00f307fdcc1eff30718e30560220542e02c32e3e392cce7adfc287c72f7f1e51ca73980505c2bebcf0b7b441ff90014c6952210394d30868076ab1ea7736ed3bdbec99497a6ad30b25afd709cdf3804cd389996a21032c58bc9615a6ff24e9132cef33f1ef373d97dc6da7933755bc8bb86dbee9f55c2102c4d72d99ca5ad12c17c9cfe043dc4e777075e8835af96f46d8e3ccd929fe192653aeffffffff0100350c00000000001976a914801d5eb10d2c1513ba1960fd8893f0ddbbe33bb388ac00000000")
         )
         val keys = listOf(
-            PrivateKey.fromBase58("cV7LGVeY2VPuCyCSarqEqFCUNig2NzwiAEBTTA89vNRQ4Vqjfurs", Base58.Prefix.SecretKeyTestnet),
-            PrivateKey.fromBase58("93NJN4mhL21FxRbfHZJ2Cou1YnrJmWNkujmZxeT7CPKauJkGv5g", Base58.Prefix.SecretKeyTestnet)
+            PrivateKey.fromBase58("cV7LGVeY2VPuCyCSarqEqFCUNig2NzwiAEBTTA89vNRQ4VnVN7So", Base58.Prefix.SecretKeyTestnet),
+            PrivateKey.fromBase58("93NJN4mhL21FxRbfHZJ2Cou1YnrJmWNkujmZxeT7CPKauEZJnmi", Base58.Prefix.SecretKeyTestnet)
         ).map { it.first }
 
         // create a tx with empty input signature scripts
@@ -233,14 +233,14 @@ class TransactionTestsCommon {
             Transaction.read("01000000016d1f1a7f8c1307139ef78080ba8442852c6766d3fbb826d2ac0e6fb2f72dd8dc000000008b483045022100bdd23d0f98a4173a64fa432b8bf4ac41261a671f2c6c690d57ac839866d78bb202207bddb87ca95c9cef45de30a75144e5513571aa7938635b9e051b1c20f01088a60141044aec194c55c97f4519535f50f5539c6915045ecb79a36281dee6db55ffe1ad2e55f4a1c0e0950d3511e8f205b45cafa348a4a2ab2359246cb3c93f6532c4e8f5ffffffff0140548900000000001976a914c622640075eaeda95a5ac26fa05a0b894a3def8c88ac00000000")
         )
         val keys = listOf(
-            PrivateKey.fromBase58("cW6bSKtH3oMPA18cXSMR8ASHztrmbwmCyqvvN8x3Tc7WG6TyrJDg", Base58.Prefix.SecretKeyTestnet),
-            PrivateKey.fromBase58("93Ag8t83NW9WmPbhqLCSUNckARpbpgWtp4EWGidtj6h6pVQgGN4", Base58.Prefix.SecretKeyTestnet),
-            PrivateKey.fromBase58("921vnTeSQCN7GMHdiHyaoZ1JSugTtzvg8rqyXH9HmFtBgrNDxCT", Base58.Prefix.SecretKeyTestnet)
+            PrivateKey.fromBase58("cW6bSKtH3oMPA18cXSMR8ASHztrmbwmCyqvvN8x3Tc7WG6TMdLme", Base58.Prefix.SecretKeyTestnet),
+            PrivateKey.fromBase58("93Ag8t83NW9WmPbhqLCSUNckARpbpgWtp4EWGidtj6h6pWwDZZU", Base58.Prefix.SecretKeyTestnet),
+            PrivateKey.fromBase58("921vnTeSQCN7GMHdiHyaoZ1JSugTtzvg8rqyXH9HmFtBgoPHPKs", Base58.Prefix.SecretKeyTestnet)
         ).map { it.first }
 
-        val dest1 = "n2Jrcf7cJH7wMJdhKZGVi2jaSnV2BwYE9m"
+        val dest1 = "n2Jrcf7cJH7wMJdhKZGVi2jaSnV28ELxmt"
         // priv: 926iWgQDq5dN84BJ4q2fu4wjSSaVWFxwanE8EegzMh3vGCUBJ94
-        val dest2 = "mk6kmMF5EEXksBkZxi7FniwwRgWuZuwDpo"
+        val dest2 = "mk6kmMF5EEXksBkZxi7FniwwRgWuZ4FBHp"
         // priv: 91r7coHBdzfgfm2p3ToJ3Bu6kcqL3BvSo5m4ENzMZzsimRKH8aq
         val amount1 = 3_000_000.sat() // 0.03 btc
         val amount2 = 7_000_000.sat() // 0.07 btc

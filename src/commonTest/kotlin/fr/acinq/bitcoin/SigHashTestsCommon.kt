@@ -26,8 +26,8 @@ class SighashSpec {
     @Test
     fun `SIGHASH_ANYONECANPAY lets you add inputs`() {
         val privateKeys = listOf(
-            PrivateKey.fromBase58("cV7LGVeY2VPuCyCSarqEqFCUNig2NzwiAEBTTA89vNRQ4Vqjfurs", Base58.Prefix.SecretKeyTestnet).first,
-            PrivateKey.fromBase58("cV5oyXUgySSMcUvKNdKtuYg4t4NTaxkwYrrocgsJZuYac2ogEdZX", Base58.Prefix.SecretKeyTestnet).first
+            PrivateKey.fromBase58("cV7LGVeY2VPuCyCSarqEqFCUNig2NzwiAEBTTA89vNRQ4VnVN7So", Base58.Prefix.SecretKeyTestnet).first,
+            PrivateKey.fromBase58("cV5oyXUgySSMcUvKNdKtuYg4t4NTaxkwYrrocgsJZuYac2qQKYmB", Base58.Prefix.SecretKeyTestnet).first
         )
 
         val publicKeys = privateKeys.map { it.publicKey() }
@@ -69,8 +69,8 @@ class SighashSpec {
     @Test
     fun `SIGHASH_ANYONECANPAY lets you add inputs (SEGWIT version)`() {
         val privateKeys = listOf(
-            PrivateKey.fromBase58("cV7LGVeY2VPuCyCSarqEqFCUNig2NzwiAEBTTA89vNRQ4Vqjfurs", Base58.Prefix.SecretKeyTestnet).first,
-            PrivateKey.fromBase58("cV5oyXUgySSMcUvKNdKtuYg4t4NTaxkwYrrocgsJZuYac2ogEdZX", Base58.Prefix.SecretKeyTestnet).first
+            PrivateKey.fromBase58("cV7LGVeY2VPuCyCSarqEqFCUNig2NzwiAEBTTA89vNRQ4VnVN7So", Base58.Prefix.SecretKeyTestnet).first,
+            PrivateKey.fromBase58("cV5oyXUgySSMcUvKNdKtuYg4t4NTaxkwYrrocgsJZuYac2qQKYmB", Base58.Prefix.SecretKeyTestnet).first
         )
 
         val publicKeys = privateKeys.map { it.publicKey() }
