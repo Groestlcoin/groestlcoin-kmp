@@ -29,38 +29,38 @@ class BIP84TestsCommon {
     fun `BIP49 reference tests`() {
         val seed = MnemonicCode.toSeed("abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about".split(" "), "")
         val master = DeterministicWallet.generate(seed)
-        assertEquals(DeterministicWallet.encode(master, DeterministicWallet.zprv), "zprvAWgYBBk7JR8Gjrh4UJQ2uJdG1r3WNRRfURiABBE3RvMXYSrRJL62XuezvGdPvG6GFBZduosCc1YP5wixPox7zhZLfiUm8aunE96BBa4Kei5")
-        assertEquals(DeterministicWallet.encode(DeterministicWallet.publicKey(master), DeterministicWallet.zpub), "zpub6jftahH18ngZxLmXaKw3GSZzZsszmt9WqedkyZdezFtWRFBZqsQH5hyUmb4pCEeZGmVfQuP5bedXTB8is6fTv19U1GQRyQUKQGUTzyHACMF")
+        assertEquals(DeterministicWallet.encode(master, DeterministicWallet.zprv), "zprvAWgYBBk7JR8Gjrh4UJQ2uJdG1r3WNRRfURiABBE3RvMXYSrRJL62XuezvGdPvG6GFBZduosCc1YP5wixPox7zhZLfiUm8aunE96BBZRTRVy")
+        assertEquals(DeterministicWallet.encode(DeterministicWallet.publicKey(master), DeterministicWallet.zpub), "zpub6jftahH18ngZxLmXaKw3GSZzZsszmt9WqedkyZdezFtWRFBZqsQH5hyUmb4pCEeZGmVfQuP5bedXTB8is6fTv19U1GQRyQUKQGUTzx6o5Ln")
 
-        val accountKey = DeterministicWallet.derivePrivateKey(master, KeyPath("m/84'/0'/0'"))
-        assertEquals(DeterministicWallet.encode(accountKey, DeterministicWallet.zprv), "zprvAdG4iTXWBoARxkkzNpNh8r6Qag3irQB8PzEMkAFeTRXxHpbF9z4QgEvBRmfvqWvGp42t42nvgGpNgYSJA9iefm1yYNZKEm7z6qUWCroSQnE")
-        assertEquals(DeterministicWallet.encode(DeterministicWallet.publicKey(accountKey), DeterministicWallet.zpub), "zpub6rFR7y4Q2AijBEqTUquhVz398htDFrtymD9xYYfG1m4wAcvPhXNfE3EfH1r1ADqtfSdVCToUG868RvUUkgDKf31mGDtKsAYz2oz2AGutZYs")
+        val accountKey = DeterministicWallet.derivePrivateKey(master, KeyPath("m/84'/17'/0'"))
+        assertEquals(DeterministicWallet.encode(accountKey, DeterministicWallet.zprv), "zprvAceMCrxbVvUavGGXAKTeDaNBZCkDAxU2AYyRB6zMxxPNkTSHX5o3tum6aqqZwqktzPpM5gwPmfUgq7jGRZmNSgRgJWLFiGqhkdNHdEoMRNS")
+        assertEquals(DeterministicWallet.encode(DeterministicWallet.publicKey(accountKey), DeterministicWallet.zpub), "zpub6qdhcNVVLJ2t8kLzGLzeaiJv7EahaRBsXmu1yVPyXHvMdFmS4d7JSi5aS6mc1oz5k6DZN781Ffn3GAs3r2FJnCPSw5nti63s3c9EDg2u7MS")
 
         val key = DeterministicWallet.derivePrivateKey(accountKey, listOf(0L, 0L))
-        assertEquals(key.secretkeybytes, DeterministicWallet.derivePrivateKey(master, KeyPath("m/84'/0'/0'/0/0")).secretkeybytes)
-        assertEquals(key.privateKey.toBase58(Base58.Prefix.SecretKey), "KyZpNDKnfs94vbrwhJneDi77V6jF64PWPF8x5cdJb8ifgg2DUc9d")
+        assertEquals(key.secretkeybytes, DeterministicWallet.derivePrivateKey(master, KeyPath("m/84'/17'/0'/0/0")).secretkeybytes)
+        assertEquals(key.privateKey.toBase58(Base58.Prefix.SecretKey), "L4mSsRa7DVFMez7MxcL9cV5ZxeKdMJpJmqJtdcGDz9oJM6sQsNz2")
         assertEquals(
             key.publicKey,
-            PublicKey.fromHex("0330d54fd0dd420a6e5f8d3624f5f3482cae350f79d5f0753bf5beef9c2d91af3c")
+            PublicKey.fromHex("02b61ee53e24da178693ef0e7bdf34a250094deb2ec9dbd80b080d7242e54df383")
         )
-        assertEquals(computeBIP84Address(key.publicKey, Block.LivenetGenesisBlock.hash), "bc1qcr8te4kr609gcawutmrza0j4xv80jy8z306fyu")
+        assertEquals(computeBIP84Address(key.publicKey, Block.LivenetGenesisBlock.hash), "grs1qrm2uggqj846nljryvmuga56vtwfey0dtnc4z55")
 
         val key1 = DeterministicWallet.derivePrivateKey(accountKey, listOf(0L, 1L))
-        assertEquals(key1.secretkeybytes, DeterministicWallet.derivePrivateKey(master, KeyPath("m/84'/0'/0'/0/1")).secretkeybytes)
-        assertEquals(key1.privateKey.toBase58(Base58.Prefix.SecretKey), "Kxpf5b8p3qX56DKEe5NqWbNUP9MnqoRFzZwHRtsFqhzuvUJsYZCy")
+        assertEquals(key1.secretkeybytes, DeterministicWallet.derivePrivateKey(master, KeyPath("m/84'/17'/0'/0/1")).secretkeybytes)
+        assertEquals(key1.privateKey.toBase58(Base58.Prefix.SecretKey), "KygxBG82bZ2SrkhaFMLRYPUMLiGmjBANxg7vDCBNVqFhmveTZKWr")
         assertEquals(
             key1.publicKey,
-            PublicKey.fromHex("03e775fd51f0dfb8cd865d9ff1cca2a158cf651fe997fdc9fee9c1d3b5e995ea77")
+            PublicKey.fromHex("028d25e8e74ddab20f6769f24ef09bf54fa0502b0ab566789da7cd2a565f199c9a")
         )
-        assertEquals(computeBIP84Address(key1.publicKey, Block.LivenetGenesisBlock.hash), "bc1qnjg0jd8228aq7egyzacy8cys3knf9xvrerkf9g")
+        assertEquals(computeBIP84Address(key1.publicKey, Block.LivenetGenesisBlock.hash), "grs1qy2vlj0w9kp408mg74trj9s08azhzschw5ayp2g")
 
         val key2 = DeterministicWallet.derivePrivateKey(accountKey, listOf(1L, 0L))
-        assertEquals(key2.secretkeybytes, DeterministicWallet.derivePrivateKey(master, KeyPath("m/84'/0'/0'/1/0")).secretkeybytes)
-        assertEquals(key2.privateKey.toBase58(Base58.Prefix.SecretKey), "KxuoxufJL5csa1Wieb2kp29VNdn92Us8CoaUG3aGtPtcF3AzeXvF")
+        assertEquals(key2.secretkeybytes, DeterministicWallet.derivePrivateKey(master, KeyPath("m/84'/17'/0'/1/0")).secretkeybytes)
+        assertEquals(key2.privateKey.toBase58(Base58.Prefix.SecretKey), "L3UPrg3xRSrVm3iHEEVLsyuXK54XJSJ9yZBzyEtrB1HNzAwnarPr")
         assertEquals(
             key2.publicKey,
-            PublicKey.fromHex("03025324888e429ab8e3dbaf1f7802648b9cd01e9b418485c5fa4c1b9b5700e1a6")
+            PublicKey.fromHex("02af1f15ed1969b0de88bb7858b6f0e3a12440f80534e21ee2422c81d644728650")
         )
-        assertEquals(computeBIP84Address(key2.publicKey, Block.LivenetGenesisBlock.hash), "bc1q8c6fshw2dlwun7ekn9qwf37cu2rn755upcp6el")
+        assertEquals(computeBIP84Address(key2.publicKey, Block.LivenetGenesisBlock.hash), "grs1q4v3e7r759yegjtcwrevg5spe5vfvwkhhwz2zca")
     }
 }
