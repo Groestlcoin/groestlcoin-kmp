@@ -76,7 +76,7 @@ kotlin {
     targets.all {
         compilations.all {
             kotlinOptions {
-                allWarningsAsErrors = true
+                allWarningsAsErrors = false // upstream is on
             }
         }
     }
